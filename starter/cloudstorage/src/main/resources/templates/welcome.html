@@ -11,11 +11,11 @@
     <body class="p-3 mb-2 bg-light text-black">
         <div class="container justify-content-center w-25 p-3" style="background-color: #eeeeee; margin-top: 5em;">
             <h1 class="display-5">Login</h1>
-            <form action="#" method="POST">
-                <div class="alert alert-danger">
-                    Invalid username or password
+            <form action="#" th:action="@{/login}"  method="POST">
+                <div class="alert alert-danger" th:if="${param.error}">
+                     test test Invalid username or password
                 </div>
-                <div class="alert alert-dark">
+                <div class="alert alert-dark" th:if="${param.logout}">
                     You have been logged out
                 </div>
                 <div class="form-group">
@@ -29,7 +29,7 @@
                 <button type="submit" class="btn btn-primary">Login</button>
             </form>
 
-            <div class="form-group" style="margin-top: 0.5em;">
+            <div class="form-group"  th:href="@{/signup}" style="margin-top: 0.5em;">
                 <label><a>Click here to sign up</a></label>
             </div>
         </div>
