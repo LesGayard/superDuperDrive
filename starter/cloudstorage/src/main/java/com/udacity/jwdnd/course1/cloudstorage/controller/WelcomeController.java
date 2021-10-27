@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/welcome")
+@RequestMapping("/")
 public class WelcomeController {
 
     private final UserService userService;
