@@ -42,7 +42,7 @@ public class FileController {
         System.out.println("test file upload controller !!");
 
         if (file.isEmpty()) {
-            model.addAttribute("errorNotSaved", "Please select a file to upload");
+            model.addAttribute("errorNotSaved", "errorNotSaved");
             return "result";
         }
         // if file not empty
@@ -50,8 +50,9 @@ public class FileController {
             System.out.println("try catch uploading");
             // Get the file and save it somewhere
             byte[] bytes = file.getBytes();
+            /* if the file is already uploaded error message */
             if(bytes.equals(bytes)){
-                model.addAttribute("errorExample",true);
+                model.addAttribute("errorExample","errorExample");
                 System.out.println("file already exist !!");
             }else{
                 Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
@@ -63,7 +64,7 @@ public class FileController {
                 /* CALL THE SERVICE LAYER */
                 int serviceUpload = fileService.upload(fileModel,file);
                 System.out.println("the service layer !! : "+ serviceUpload);
-                model.addAttribute("success", true);
+                model.addAttribute("success", "success");
             }
 
         } catch (IOException e) {
