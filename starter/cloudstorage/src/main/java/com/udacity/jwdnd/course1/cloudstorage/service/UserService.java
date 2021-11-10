@@ -20,12 +20,13 @@ public class UserService {
         this.hashService = hashService;
     }
 
-    public boolean isUserNameAvailable (String userName){
-        return userMapper.getUser(userName) == null;
+    public boolean isUserNameAvailable (String username){
+        System.out.println("inside the user service layer :  isUserNameAvailable : " + userMapper.getUser(username));
+        return userMapper.getUser(username) == null;
     }
 
-    public User getUser(String userName){
-        return userMapper.getUser(userName);
+    public  User getUser(String username){
+        return userMapper.getUser(username);
     }
 
     public int createUser(User user) {
@@ -34,7 +35,7 @@ public class UserService {
         random.nextBytes(salt);
         String encodedSalt = Base64.getEncoder().encodeToString(salt);
         String hashedPassword = hashService.getHashedValue(user.getPassword(), encodedSalt);
-        return userMapper.insert(new User(null, user.getUsername(), encodedSalt, hashedPassword, user.getFirstname(), user.getLastname()));
+        return userMapper.createUser(new User(null, user.getUsername(), encodedSalt, hashedPassword, user.getFirstname(), user.getLastname()));
     }
 
 }

@@ -55,7 +55,7 @@ public class FileService {
         /* Upload method */
         public int upload(FileModel fileModel,MultipartFile multipartFile) throws IOException{
             try {
-                System.out.println("inside the service layer first setting userID : " + fileModel.getUserId());
+                System.out.println("inside the service layer first setting  : " + fileModel.getUserId());
                 fileModel.setFileName(multipartFile.getOriginalFilename());
                 System.out.println("inside the service layer  setting uploaded fileName : " + fileModel.getFileName());
                 fileModel.setContentType(multipartFile.getContentType());
@@ -90,6 +90,16 @@ public class FileService {
             } catch (MalformedURLException e) {
                 throw new RuntimeException("Error: " + e.getMessage());
             }
+        }
+
+        /* VIEW THE FILES */
+        public ArrayList<String>viewFiles(String fileName){
+            return fileMapper.viewFiles(fileName);
+        }
+
+        /* SELECT FILES BY ID */
+        public FileModel viewFileById(int id){
+            return fileMapper.viewFileById(id);
         }
 
         /* DELETE THE FILE */
