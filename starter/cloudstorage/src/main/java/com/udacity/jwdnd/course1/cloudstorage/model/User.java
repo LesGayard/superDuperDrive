@@ -1,36 +1,37 @@
 package com.udacity.jwdnd.course1.cloudstorage.model;
 
+
 public class User {
 
-    private Integer id;
+    private Integer userId;
     private String username;
     private String salt;
     private String password;
-    private String firstName;
+    private String firstname;
     private String lastname;
 
     public User() {
     }
 
-    public User(Integer id, String username, String salt,String password, String firstName, String lastname) {
-        this.id = id;
+    public User(Integer userId, String username, String salt,String password, String firstname, String lastname) {
+        this.userId = userId;
         this.username = username;
         this.salt = salt;
         this.password = password;
-        this.firstName = firstName;
+        this.firstname = firstname;
         this.lastname = lastname;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public String getUsername() {
-        return username;
+        return this.username;
     }
 
     public void setUsername(String username) {
@@ -48,19 +49,21 @@ public class User {
     public void setPassword(String password){
         this.password = password;
     }
+
     public String getPassword(){
         return this.password;
     }
+
     public String getFirstname() {
-        return firstName;
+        return this.firstname;
     }
 
-    public void setFirstname(String firstName) {
-        this.firstName = firstName;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
     public String getLastname() {
-        return lastname;
+        return this.lastname;
     }
 
     public void setLastname(String lastname) {
@@ -70,12 +73,12 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", salt='" + salt + '\'' +
-                ", paswword= " + password + " " +
-                ", firstName='" + firstName + '\'' +
-                ", lastname='" + lastname + '\'' +
+                "id=" + this.userId +
+                ", username='" + this.username + '\'' +
+                ", salt='" + this.salt + '\'' +
+                ", paswword= " + this.password + " " +
+                ", firstName='" + this.firstname + '\'' +
+                ", lastname='" + this.lastname + '\'' +
                 '}';
     }
 }
