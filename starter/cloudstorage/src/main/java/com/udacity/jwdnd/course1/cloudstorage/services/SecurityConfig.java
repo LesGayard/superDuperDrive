@@ -30,8 +30,8 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
                 .antMatchers("/signup", "/css/**", "/js/**").permitAll().and()
                 .authorizeRequests().antMatchers("/h2console/**").permitAll();
 
-        httpSecurity.csrf().disable();
-        httpSecurity.headers().frameOptions().disable();
+       /* httpSecurity.csrf().disable();
+        httpSecurity.headers().frameOptions().disable();*/
 
         httpSecurity.formLogin()
                 .loginPage("/")

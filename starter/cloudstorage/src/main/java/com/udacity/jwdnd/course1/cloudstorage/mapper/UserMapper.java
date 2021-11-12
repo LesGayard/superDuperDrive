@@ -11,6 +11,10 @@ public interface UserMapper {
     @Select("SELECT * FROM USERS WHERE username = #{username}")
     User getUser(String username);
 
+    /* FIND THE USER BY ID FOR FILES */
+    @Select ("SELECT * FROM USERS WHERE userId = #{userId}")
+    Integer getUserById(Integer userId);
+
     @Insert("INSERT INTO USERS (username,salt,password, firstname, lastname) VALUES (#{username},#{salt},#{password},#{firstname},#{lastname})")
     @Options(useGeneratedKeys = true, keyProperty = "userId")
     int createUser(User user);

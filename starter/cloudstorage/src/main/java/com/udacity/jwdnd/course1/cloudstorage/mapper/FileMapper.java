@@ -14,21 +14,21 @@ import java.util.ArrayList;
 public interface FileMapper {
 
     /* FIND THE FILE */
-    @Select("SELECT * FROM FILES WHERE fileName = #{fileName}")
-    FileModel getFile(String fileName);
+    @Select("SELECT * FROM FILES WHERE filename = #{filename}")
+    FileModel getFile(String filename);
 
     /* UPLOAD THE FILE*/
-    @Insert("INSERT INTO FILES (fileName, contentType, fileSize, userId, fileData) VALUES (#{fileName},#{contentType},#{fileSize},#{userId},#{fileData})")
+    @Insert("INSERT INTO FILES (filename, contenttype, filesize, userId, filedata) VALUES (#{filename},#{contenttype},#{filesize},#{userId},#{filedata})")
     @Options(useGeneratedKeys = true, keyProperty = "fileId")
     int upload (FileModel fileModel);
 
     /* DOWNLOAD THE FILE */
     @Select("SELECT * FROM FILES WHERE username = #{username} AND filename = #{filename}")
-    Resource load(String fileName);
+    Resource load(String filename);
 
     /* FIND THE FILE FOR A LIST IN THE VIEW FROM THE FILENAME */
-    @Select("SELECT * FROM FILES WHERE fileName = #{fileName}")
-    ArrayList<String>viewFiles(String fileName);
+    @Select("SELECT * FROM FILES WHERE filename = #{filename}")
+    ArrayList<String>viewFiles(String filename);
 
     /* FIND THE FILE FROM ITS ID */
     @Select("SELECT * FROM FILES WHERE fileId = #{fileId}")

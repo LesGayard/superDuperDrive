@@ -21,13 +21,16 @@ public class UserService {
     }
 
     public boolean isUserNameAvailable (String username){
-        System.out.println("inside the user service layer :  isUserNameAvailable : " + userMapper.getUser(username));
+        System.out.println("inside the user service layer :  isUserNameAvailable : " + this.userMapper.getUser(username));
         return userMapper.getUser(username) == null;
     }
 
     public  User getUser(String username){
-        return userMapper.getUser(username);
+        return this.userMapper.getUser(username);
     }
+
+    /*FIND THE USERS BY ID FOR THE FILES */
+    public Integer getUserById(Integer userId){ return this.userMapper.getUserById(userId);}
 
     public int createUser(User user) {
         SecureRandom random = new SecureRandom();
@@ -35,7 +38,7 @@ public class UserService {
         random.nextBytes(salt);
         String encodedSalt = Base64.getEncoder().encodeToString(salt);
         String hashedPassword = hashService.getHashedValue(user.getPassword(), encodedSalt);
-        return userMapper.createUser(new User(null, user.getUsername(), encodedSalt, hashedPassword, user.getFirstname(), user.getLastname()));
+        return this.userMapper.createUser(new User(null, user.getUsername(), encodedSalt, hashedPassword, user.getFirstname(), user.getLastname()));
     }
 
 }

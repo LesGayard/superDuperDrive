@@ -1,5 +1,4 @@
 package com.udacity.jwdnd.course1.cloudstorage.service;
-import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.FileAlreadyExistsException;
@@ -17,7 +16,6 @@ import com.udacity.jwdnd.course1.cloudstorage.mapper.FileMapper;
 import com.udacity.jwdnd.course1.cloudstorage.mapper.UserMapper;
 import com.udacity.jwdnd.course1.cloudstorage.model.FileModel;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.Authentication;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
@@ -30,6 +28,7 @@ public class FileService {
 
     private final FileMapper fileMapper;
     private final UserMapper userMapper;
+    private static String UPLOADED_FOLDER = "starter/cloudstorage/src/main/resources/updates";
 
 
         @Value("${upload.path}")
@@ -53,26 +52,38 @@ public class FileService {
         }
 
         /* Upload method */
-        public int upload(FileModel fileModel,MultipartFile multipartFile) throws IOException{
+        public int upload(MultipartFile multipartFile) throws IOException{
+            FileModel fileModel = new FileModel();
+            // Get the file and save it somewhere
+            byte[] bytes = multipartFile.getBytes();
             try {
-                System.out.println("inside the service layer first setting  : " + fileModel.getUserId());
-                fileModel.setFileName(multipartFile.getOriginalFilename());
-                System.out.println("inside the service layer  setting uploaded fileName : " + fileModel.getFileName());
-                fileModel.setContentType(multipartFile.getContentType());
-                fileModel.setFileSize(Long.toString(multipartFile.getSize()));
-                fileModel.setFileData(multipartFile.getBytes());
+                /* GET THE FILE TO SAVE FROM ITS PATH*/
+                Path path = Paths.get(UPLOADED_FOLDER + multipartFile.getOriginalFilename());
+                Files.write(path, bytes);
+
+                System.out.println("writing the file");
+                System.out.println("file uploaded : " + multipartFile.getOriginalFilename());
+
+                fileModel.setFilename(multipartFile.getOriginalFilename());
+                System.out.println("inside the file service layer  setting uploaded filename : " + fileModel.getFilename());
+                fileModel.setContenttype(multipartFile.getContentType());
+                fileModel.setFilesize(Long.toString(multipartFile.getSize()));
+                //fileModel.setUserId(this.userMapper.getUserById(userId));
+                fileModel.setFiledata(multipartFile.getBytes());
+
+
+
             }catch (FileAlreadyExistsException fileAlreadyExistsException){
                 fileAlreadyExistsException.getLocalizedMessage();
             }
-                return fileMapper.upload(fileModel);
+                return this.fileMapper.upload(fileModel);
         }
 
 
     /* if the file is already uploaded error message */
     public boolean isAlreadyUploaded(MultipartFile fileToUpload){
-        System.out.println(fileMapper.getFile(fileToUpload.getOriginalFilename()));
+        System.out.println(" Test if this file is already uploaded : " + fileMapper.getFile(fileToUpload.getOriginalFilename()));
             return fileMapper.getFile(fileToUpload.getOriginalFilename()) != null;
-
     }
 
         /* SELECT BY FILENAME */
