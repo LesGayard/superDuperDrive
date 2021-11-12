@@ -1,21 +1,18 @@
 package com.udacity.jwdnd.course1.cloudstorage.controller;
 
 import com.udacity.jwdnd.course1.cloudstorage.model.FileModel;
+import com.udacity.jwdnd.course1.cloudstorage.model.User;
 import com.udacity.jwdnd.course1.cloudstorage.service.FileService;
 import com.udacity.jwdnd.course1.cloudstorage.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
-
 import java.io.IOException;
-
-
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -28,7 +25,7 @@ public class FileController {
 
     private final FileService fileService;
     private final UserService userService;
-    private static String UPLOADED_FOLDER = "starter/cloudstorage/src/main/resources/updates";
+
     private ArrayList<String>files;
 
     @Autowired
@@ -41,8 +38,11 @@ public class FileController {
 
     /* UPLOAD THE FILES AND PUT THEM INTO AN ARRAYLIST TO BE DISPLAYED */
     @PostMapping
-    public String uploadFile(@RequestParam("originalFilenameUpload") @ModelAttribute("FileModel") MultipartFile file, Model model, FileModel fileModel, Authentication authentication) {
-        System.out.println("test file upload controller !!");
+    public String uploadFile(@RequestParam("originalFilenameUpload") @ModelAttribute("FileModel") MultipartFile file, Model model, FileModel fileModel,Authentication authentication) {
+        System.out.println("test file upload in the file controller !!");
+
+        /* FIND THE ID */
+
         /* If the file doesn't exist*/
         if (file.isEmpty()) {
             model.addAttribute("errorNotSaved", "errorNotSaved");
@@ -51,29 +51,16 @@ public class FileController {
         // if file not empty
         try {
             System.out.println("try catch uploading");
-            // Get the file and save it somewhere
-            byte[] bytes = file.getBytes();
+            /* if the file is already uploaded error message */
+            if(this.fileService.isAlreadyUploaded(file)){
 
-            if(fileService.isAlreadyUploaded(file)){
-                /* if the file is already uploaded error message */
                 model.addAttribute("errorExample", "errorExample");
                 System.out.println("file already exist !!");
 
             }else {
                 /* CALL THE SERVICE LAYER */
-                int serviceUpload = fileService.upload(fileModel, file);
-                System.out.println("the service layer !! : " + serviceUpload);
-                System.out.println("the folder : " + UPLOADED_FOLDER);
-                this.files = fileService.viewFiles(file.getOriginalFilename());
-                FileModel fileModelTest = fileService.viewFileById(fileModel.getFileId());
-                System.out.println("Id FileModel to show !! " + fileModelTest);
-                System.out.println(this.files);
-                /* GET THE FILE TO SAVE FROM ITS PATH*/
-                Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
-                Files.write(path, bytes);
-
-                System.out.println("writing the file");
-                System.out.println("file uploaded : " + file.getOriginalFilename());
+                int serviceUpload = this.fileService.upload(file, authentication);
+                System.out.println("the upload service layer !! : " + serviceUpload);
 
                 /* Take the arrayList !!*/
                 System.out.println("The array List before the work  : " + this.files.size());
@@ -91,5 +78,7 @@ public class FileController {
 
 
     }
+
+
 
 }

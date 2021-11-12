@@ -1,85 +1,83 @@
 package com.udacity.jwdnd.course1.cloudstorage.model;
 
-import java.sql.Blob;
-
 public class FileModel {
 
     private Integer fileId;
-    private String fileName;
-    private String contentType;
-    private String fileSize;
+    private String filename;
+    private String contenttype;
+    private String filesize;
     private Integer userId;
-    private byte[]  fileData;
+    private byte[] filedata;
 
     public FileModel() {
     }
 
-    public FileModel(Integer fileId, String fileName, String contentType, String fileSize, Integer userId, byte[]fileData) {
+    public FileModel(Integer fileId, String fileName, String contenttype, String filesize, Integer userId, byte[] filedata) {
         this.fileId = fileId;
-        this.fileName = fileName;
-        this.contentType = contentType;
-        this.fileSize = fileSize;
+        this.filename = fileName;
+        this.contenttype = contenttype;
+        this.filesize = filesize;
         this.userId = userId;
-        this.fileData = fileData;
+        this.filedata = filedata;
     }
 
     public Integer getFileId() {
-        return fileId;
+        return this.fileId;
     }
 
     public void setFileId(Integer fileId) {
         this.fileId = fileId;
     }
 
-    public String getFileName() {
-        return fileName;
+    public String getFilename() {
+        return this.filename;
     }
 
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
+    public void setFilename(String filename) {
+        this.filename = filename;
     }
 
-    public String getContentType() {
-        return contentType;
+    public String getContenttype() {
+        return this.contenttype;
     }
 
-    public void setContentType(String contentType) {
-        this.contentType = contentType;
+    public void setContenttype(String contenttype) {
+        this.contenttype = contenttype;
     }
 
-    public String getFileSize() {
-        return fileSize;
+    public String getFilesize() {
+        return this.filesize;
     }
 
-    public void setFileSize(String fileSize) {
-        this.fileSize = fileSize;
+    public void setFilesize(String filesize) {
+        this.filesize = filesize;
     }
 
     public Integer getUserId() {
-        return userId;
+        return this.userId;
     }
 
     public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
-    public byte[] getFileData() {
-        return fileData;
+    public byte[] getFiledata() {
+        return this.filedata;
     }
 
-    public void setFileData(byte[] fileData) {
-        this.fileData = fileData;
+    public void setFiledata(byte[] filedata) {
+        this.filedata = filedata;
     }
 
     @Override
     public String toString() {
         return "File{" +
-                "fileId=" + fileId +
-                ", fileName='" + fileName + '\'' +
-                ", contentType='" + contentType + '\'' +
-                ", fileSize='" + fileSize + '\'' +
-                ", userId=" + userId +
-                ", fileData=" + fileData +
+                "fileId=" + this.fileId +
+                ", fileName='" + this.filename + '\'' +
+                ", contentType='" + this.contenttype + '\'' +
+                ", fileSize='" + this.filesize + '\'' +
+                ", userId=" + this.userId +
+                ", fileData=" + this.filedata +
                 '}';
     }
 }

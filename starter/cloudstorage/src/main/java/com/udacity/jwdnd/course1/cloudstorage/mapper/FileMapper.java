@@ -35,6 +35,4 @@ public interface FileMapper {
     FileModel viewFileById(int id);
 
 
-
-
 }
