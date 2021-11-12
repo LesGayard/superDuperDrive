@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/")
-public class WelcomeController {
+public class LoginController {
 
 
     @Autowired
@@ -25,11 +25,15 @@ public class WelcomeController {
     }
     @PostMapping
     public String HomeTemplate(Model model, Authentication authentication){
+        String param = null;
         String username = authentication.getName();
         User user = userService.getUser(username);
+        System.out.println("ultimate test");
 
         if(user == null || username == null){
             System.out.println("User or username null !!");
+            param = "error !!";
+            model.addAttribute("param.error", true);
             return "home";
         }else{
             Integer userId = getUserId(authentication);
