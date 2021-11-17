@@ -49,12 +49,13 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each = "fileUpload : fileModel">
+                                <tr th:each = "fileUpload : ${fileModel}">
                                     <td >
                                         <a target="_blank" class="btn btn-success">View</a>
                                         <a  class="btn btn-danger">Delete</a>
                                     </td>
-                                    <th th:text = "${fileModel}" scope="row">ExampleFile.txt</th>
+                                    <th th:text = "${fileModel}"scope="row">ExampleFile.txt</th>
+
 
                                 </tr>
                                 </tbody>
