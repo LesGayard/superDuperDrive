@@ -108,10 +108,16 @@ public class FileService {
         }
     }
 
-    /* VIEW THE FILES */
-    public ArrayList<String>viewFiles(String fileName) {
-        return fileMapper.viewFiles(fileName);
+    /* VIEW THE FILES BY FILENAME*/
+    public ArrayList<String>viewFilesByFilename(String filename) {
+        return fileMapper.viewFilesByFilename(filename);
     }
+
+    /* VIEW THE FILES BY USERID*/
+    public ArrayList<FileModel>  viewFilesByUserId(Integer userId) {
+        return fileMapper.viewFilesByUserId(userId);
+    }
+
     /* SELECT FILES BY ID */
     public FileModel viewFileById(int id){
         return fileMapper.viewFileById(id);

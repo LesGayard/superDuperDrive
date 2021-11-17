@@ -27,12 +27,17 @@ public interface FileMapper {
     Resource load(String filename);
 
     /* FIND THE FILE FOR A LIST IN THE VIEW FROM THE FILENAME */
-    @Select("SELECT * FROM FILES WHERE filename = #{filename}")
-    ArrayList<String>viewFiles(String filename);
+    @Select("SELECT * FROM FILES WHERE filename = #{filename} AND userId = #{userId}")
+    ArrayList<String>viewFilesByFilename(String filename);
+
+    /* FIND THE FILE FOR A LIST IN THE VIEW FROM THE USERID*/
+    @Select("SELECT * FROM FILES WHERE userId = #{userId}")
+    ArrayList<FileModel> viewFilesByUserId(Integer userId);
 
     /* FIND THE FILE FROM ITS ID */
     @Select("SELECT * FROM FILES WHERE fileId = #{fileId}")
     FileModel viewFileById(int id);
+
 
 
 }

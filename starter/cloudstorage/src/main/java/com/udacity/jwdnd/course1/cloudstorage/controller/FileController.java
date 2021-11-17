@@ -6,16 +6,11 @@ import com.udacity.jwdnd.course1.cloudstorage.service.FileService;
 import com.udacity.jwdnd.course1.cloudstorage.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 
 
@@ -26,13 +21,12 @@ public class FileController {
     private final FileService fileService;
     private final UserService userService;
 
-    private ArrayList<String>files;
 
     @Autowired
     public FileController(FileService fileService, UserService userService,ArrayList<String>files) {
         this.fileService = fileService;
         this.userService = userService;
-        this.files = new ArrayList<String>();
+
     }
 
 
@@ -42,7 +36,7 @@ public class FileController {
         System.out.println("test file upload in the file controller !!");
 
         /* FIND THE ID */
-
+        Integer userId = getUserId(authentication);
         /* If the file doesn't exist*/
         if (file.isEmpty()) {
             model.addAttribute("errorNotSaved", "errorNotSaved");
@@ -63,12 +57,9 @@ public class FileController {
                 System.out.println("the upload service layer !! : " + serviceUpload);
 
                 /* Take the arrayList !!*/
-                System.out.println("The array List before the work  : " + this.files.size());
-                this.files.add(file.getOriginalFilename());
-                System.out.println("The array List after the work  : " + this.files.size() + "file added : " + file.getOriginalFilename());
-
                 model.addAttribute("success", "success");
-                model.addAttribute("uploadedFiles", "test");
+                /*ArrayList<String> test = this.fileService.viewFiles(file.getOriginalFilename());
+                System.out.println("Array list test : " + test);*/
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -76,9 +67,13 @@ public class FileController {
 
         return "result";
 
-
     }
 
-
+    /* FIND THE USERID*/
+    private Integer getUserId(Authentication authentication) {
+        String userName = authentication.getName();
+        User user = userService.getUser(userName);
+        return user.getUserId();
+    }
 
 }
