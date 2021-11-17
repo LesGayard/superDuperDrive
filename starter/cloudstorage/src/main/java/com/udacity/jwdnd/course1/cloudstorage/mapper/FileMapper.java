@@ -32,7 +32,10 @@ public interface FileMapper {
 
     /* FIND THE FILE FOR A LIST IN THE VIEW FROM THE USERID*/
     @Select("SELECT * FROM FILES WHERE userId = #{userId}")
-    ArrayList<FileModel> viewFilesByUserId(Integer userId);
+    ArrayList<String> viewFilesByUserId(Integer userId);
+
+    @Select("SELECT * FROM FILES WHERE userId = #{userId}")
+    ArrayList<FileModel> viewFileModelsByUserId(Integer userId);
 
     /* FIND THE FILE FROM ITS ID */
     @Select("SELECT * FROM FILES WHERE fileId = #{fileId}")

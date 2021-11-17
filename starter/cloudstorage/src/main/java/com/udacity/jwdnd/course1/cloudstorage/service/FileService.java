@@ -114,9 +114,15 @@ public class FileService {
     }
 
     /* VIEW THE FILES BY USERID*/
-    public ArrayList<FileModel>  viewFilesByUserId(Integer userId) {
-        
-        return fileMapper.viewFilesByUserId(userId);
+    public ArrayList<String>  viewFilesByUserId(Integer userId) {
+        ArrayList<String> displayFiles = new ArrayList<String>();
+        System.out.println("inside the file service Layer for the uploaded files array List : ");
+        ArrayList<FileModel> result = this.fileMapper.viewFileModelsByUserId(userId);
+        for(FileModel fileModel: result){
+            System.out.println("Inside th for loop in the service fieupload layer : " + fileModel.getFilename());
+            displayFiles.add(fileModel.getFilename());
+        }
+        return displayFiles;
     }
 
     /* SELECT FILES BY ID */
