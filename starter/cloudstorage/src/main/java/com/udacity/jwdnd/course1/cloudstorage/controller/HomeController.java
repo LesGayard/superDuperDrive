@@ -10,13 +10,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import java.util.ArrayList;
 
-import java.nio.file.Path;
-import java.util.List;
 
 @Controller
 @RequestMapping("/home")
@@ -36,6 +33,7 @@ public class HomeController {
         String param = null;
         String username = "";
         Integer userId = 0;
+        ArrayList<String> displayUploadedFiles = new ArrayList<String>();
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         /* CHECK THE RIGHT USER LOGGED IN WITH ITS OWN ID */
@@ -59,8 +57,10 @@ public class HomeController {
             userId = getUserId(authentication);
             System.out.println("userID : " + userId);
             try{
-                System.out.println(this.fileService.viewFilesByUserId(userId));
-                model.addAttribute("fileModel",this.fileService.viewFilesByUserId(userId));
+
+                model.addAttribute("FileModel",this.fileService.viewFilesByUserId(userId));
+                
+
             }catch(Exception e){
                 e.printStackTrace();
             }
