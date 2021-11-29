@@ -27,8 +27,8 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
 
         /* DATABASE ACCESS */
         httpSecurity.authorizeRequests()
-                .antMatchers("/signup", "/css/**", "/js/**").permitAll().and()
-                .authorizeRequests().antMatchers("/h2console/**").permitAll();
+                .antMatchers("/signup", "/css/**", "/js/**","/h2console/**").permitAll().and()
+                .authorizeRequests().anyRequest().authenticated();
 
        httpSecurity.csrf().disable();
         httpSecurity.headers().frameOptions().disable();

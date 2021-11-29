@@ -115,10 +115,8 @@ public class FileService {
 
     /* VIEW THE FILES BY USERID*/
     public ArrayList<FileModel>  viewFilesByUserId(Integer userId) {
-
         ArrayList<FileModel> result = this.fileMapper.viewFileModelsByUserId(userId);
         System.out.println("inside the file service Layer for the uploaded files array List : " + result);
-
         return result;
     }
 
@@ -132,6 +130,22 @@ public class FileService {
     public void deleteAll() {
         FileSystemUtils.deleteRecursively(Paths.get(uploadPath)
                 .toFile());
+    }
+
+    /* DELETE THE FILE FROM ITS ID */
+    public Integer deleteFilesById(Integer fileId){
+         return this.fileMapper.deleteFilesByFileId(fileId);
+
+    }
+
+    /* BOOLEAN IS ALREADY DELETED */
+    public boolean isFileDelete(Integer fileId){
+        Boolean result = false;
+        if(this.fileMapper.deleteFilesByFileId(fileId) != null){
+            System.out.println("test boolean is already deleted : " + this.fileMapper.deleteFilesByFileId(fileId) );
+            result = true;
+        }
+        return result;
     }
 
     public List<Path> loadAll() {

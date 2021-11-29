@@ -4,14 +4,21 @@ import com.udacity.jwdnd.course1.cloudstorage.model.FileModel;
 import com.udacity.jwdnd.course1.cloudstorage.model.User;
 import com.udacity.jwdnd.course1.cloudstorage.service.FileService;
 import com.udacity.jwdnd.course1.cloudstorage.service.UserService;
+import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import java.io.IOException;
 import java.util.ArrayList;
+
+
 
 
 @Controller
@@ -50,24 +57,20 @@ public class FileController {
 
                 model.addAttribute("errorExample", "errorExample");
                 System.out.println("file already exist !!");
-
             }else {
                 /* CALL THE SERVICE LAYER */
                 int serviceUpload = this.fileService.upload(file, authentication);
                 System.out.println("the upload service layer !! : " + serviceUpload);
-
                 /* Take the arrayList !!*/
                 model.addAttribute("success", "success");
-                /*ArrayList<String> test = this.fileService.viewFiles(file.getOriginalFilename());
-                System.out.println("Array list test : " + test);*/
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return "result";
 
     }
+
 
     /* FIND THE USERID*/
     private Integer getUserId(Authentication authentication) {
