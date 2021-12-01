@@ -1,7 +1,7 @@
 package com.udacity.jwdnd.course1.cloudstorage.service;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
+
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -16,8 +16,6 @@ import com.udacity.jwdnd.course1.cloudstorage.mapper.UserMapper;
 import com.udacity.jwdnd.course1.cloudstorage.model.FileModel;
 import com.udacity.jwdnd.course1.cloudstorage.model.User;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
@@ -91,22 +89,11 @@ public class FileService {
         return fileMapper.getFile(fileToUpload.getOriginalFilename()) != null;
     }
 
-    /* SELECT BY FILENAME */
-    public Resource load(String fileName) {
-        try {
-            Path file = Paths.get(uploadPath)
-                        .resolve(fileName);
-            Resource resource = new UrlResource(file.toUri());
-
-            if (resource.exists() || resource.isReadable()) {
-                return resource;
-            } else {
-                throw new RuntimeException("Could not read the file!");
-            }
-        } catch (MalformedURLException e) {
-            throw new RuntimeException("Error: " + e.getMessage());
-        }
+    public FileModel getFile(String filename){
+        System.out.println("test get file method service");
+        return this.fileMapper.getFile(filename);
     }
+
 
     /* VIEW THE FILES BY FILENAME*/
     public ArrayList<String>viewFilesByFilename(String filename) {

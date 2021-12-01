@@ -51,7 +51,7 @@
                                 <tbody>
                                 <tr th:each = "fileUpload: ${FileModel}">
                                     <td >
-                                        <a target="_blank" class="btn btn-success">View</a>
+                                        <a target="_blank" th:href="@{home/view/(fileId = ${fileUpload.fileId})}" class="btn btn-success">View</a>
                                         <a  th:href="@{home/(fileId = ${fileUpload.fileId})}" class="btn btn-danger">Delete</a>
 
 
