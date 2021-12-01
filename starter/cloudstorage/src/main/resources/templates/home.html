@@ -103,14 +103,14 @@
                                     </div>
                                     <div class="modal-body">
                                         <form action="#" th:action="@{/result}" method="POST">
-                                            <input type="hidden" name="noteId" id="note-id">
+                                            <input type="hidden" name="noteId" id="noteModel-id">
                                             <div class="form-group">
-                                                <label for="note-title" class="col-form-label">Title</label>
-                                                <input type="text" name= "noteTitle" class="form-control" id="note-title" maxlength="20" required>
+                                                <label for="noteModel-title" class="col-form-label">Title</label>
+                                                <input type="text" name= "noteTitle" class="form-control" id="noteModel-title" maxlength="20" required>
                                             </div>
                                             <div class="form-group">
-                                                <label for="note-description" class="col-form-label">Description</label>
-                                                <textarea class="form-control" name="noteDescription" id="note-description" rows="5" maxlength="1000" required></textarea>
+                                                <label for="noteModel-description" class="col-form-label">Description</label>
+                                                <textarea class="form-control" name="noteDescription" id="noteModel-description" rows="5" maxlength="1000" required></textarea>
                                             </div>
                                             <button id="noteSubmit" type="submit" class="d-none"></button>
                                         </form>
@@ -165,15 +165,15 @@
                                         <form action="#" method="POST">
                                             <input type="hidden" name="credentialId" id="credential-id">
                                             <div class="form-group">
-                                                <label for="note-title" class="col-form-label">URL</label>
+                                                <label for="noteModel-title" class="col-form-label">URL</label>
                                                 <input type="text" name= "url" class="form-control" id="credential-url" maxlength="100" required>
                                             </div>
                                             <div class="form-group">
-                                                <label for="note-title" class="col-form-label">Username</label>
+                                                <label for="noteModel-title" class="col-form-label">Username</label>
                                                 <input type="text" name= "username" class="form-control" id="credential-username" maxlength="30" required>
                                             </div>
                                             <div class="form-group">
-                                                <label for="note-title" class="col-form-label">Password</label>
+                                                <label for="noteModel-title" class="col-form-label">Password</label>
                                                 <input type="text" name= "password" class="form-control" id="credential-password" maxlength="30" required>
                                             </div>
                                             <button id="credentialSubmit" type="submit" class="d-none"></button>
@@ -195,13 +195,13 @@
         <script th:src="@{/js/popper.min.js}"></script>
         <script th:src="@{/js/bootstrap.min.js}"></script>
 
-        <!--For opening the note modal-->
+        <!--For opening the noteModel modal-->
         <script type="text/javascript">
-            // For opening the note modal
+            // For opening the noteModel modal
             function showNoteModal(noteId, noteTitle, noteDescription) {
-                $('#note-id').val(noteId ? noteId : '');
-                $('#note-title').val(noteTitle ? noteTitle : '');
-                $('#note-description').val(noteDescription ? noteDescription : '');
+                $('#noteModel-id').val(noteId ? noteId : '');
+                $('#noteModel-title').val(noteTitle ? noteTitle : '');
+                $('#noteModel-description').val(noteDescription ? noteDescription : '');
                 $('#noteModal').modal('show');
             }
 
