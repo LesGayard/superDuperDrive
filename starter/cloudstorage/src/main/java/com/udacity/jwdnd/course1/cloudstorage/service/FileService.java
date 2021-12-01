@@ -63,16 +63,16 @@ public class FileService {
             Path path = Paths.get(UPLOADED_FOLDER + multipartFile.getOriginalFilename());
             Files.write(path, bytes);
 
-            System.out.println("writing the file");
-            System.out.println("file uploaded : " + multipartFile.getOriginalFilename());
+            //System.out.println("writing the file");
+            //System.out.println("file uploaded : " + multipartFile.getOriginalFilename());
 
             fileModel.setFilename(multipartFile.getOriginalFilename());
-            System.out.println("inside the file service layer  setting uploaded filename : " + fileModel.getFilename());
+            //System.out.println("inside the file service layer  setting uploaded filename : " + fileModel.getFilename());
             fileModel.setContenttype(multipartFile.getContentType());
             fileModel.setFilesize(Long.toString(multipartFile.getSize()));
             //fileModel.setUserId(this.userMapper.getUserById(userId));
             Integer userId = getUserId(authentication);
-            System.out.println("userID : " + userId);
+            //System.out.println("userID : " + userId);
             fileModel.setUserId(userId);
             fileModel.setFiledata(multipartFile.getBytes());
 
@@ -85,12 +85,12 @@ public class FileService {
 
     /* if the file is already uploaded error message */
     public boolean isAlreadyUploaded(MultipartFile fileToUpload){
-        System.out.println(" Test if this file is already uploaded : " + fileMapper.getFile(fileToUpload.getOriginalFilename()));
+        //System.out.println(" Test if this file is already uploaded : " + fileMapper.getFile(fileToUpload.getOriginalFilename()));
         return fileMapper.getFile(fileToUpload.getOriginalFilename()) != null;
     }
 
     public FileModel getFile(String filename){
-        System.out.println("test get file method service");
+        //System.out.println("test get file method service");
         return this.fileMapper.getFile(filename);
     }
 
@@ -103,7 +103,7 @@ public class FileService {
     /* VIEW THE FILES BY USERID*/
     public ArrayList<FileModel>  viewFilesByUserId(Integer userId) {
         ArrayList<FileModel> result = this.fileMapper.viewFileModelsByUserId(userId);
-        System.out.println("inside the file service Layer for the uploaded files array List : " + result);
+       // System.out.println("inside the file service Layer for the uploaded files array List : " + result);
         return result;
     }
 
@@ -129,7 +129,7 @@ public class FileService {
     public boolean isFileDelete(Integer fileId){
         Boolean result = false;
         if(this.fileMapper.deleteFilesByFileId(fileId) != null){
-            System.out.println("test boolean is already deleted : " + this.fileMapper.deleteFilesByFileId(fileId) );
+            //System.out.println("test boolean is already deleted : " + this.fileMapper.deleteFilesByFileId(fileId) );
             result = true;
         }
         return result;

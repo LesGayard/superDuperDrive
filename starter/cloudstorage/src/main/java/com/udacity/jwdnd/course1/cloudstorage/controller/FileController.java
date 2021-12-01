@@ -40,13 +40,13 @@ public class FileController {
     /* UPLOAD THE FILES AND PUT THEM INTO AN ARRAYLIST TO BE DISPLAYED */
     @PostMapping
     public String uploadFile(@RequestParam("originalFilenameUpload") @ModelAttribute("FileModel") MultipartFile file, Model model, FileModel fileModel,Authentication authentication) {
-        System.out.println("test file upload in the file controller !!");
+        //System.out.println("test file upload in the file controller !!");
 
         /* FIND THE ID */
         Integer userId = getUserId(authentication);
         /* If the file doesn't exist*/
         if (file.isEmpty()) {
-            model.addAttribute("errorNotSaved", "errorNotSaved");
+            model.addAttribute("errorNotSaved", "Your changes were not saved.");
             return "result";
         }
         // if file not empty
@@ -55,14 +55,14 @@ public class FileController {
             /* if the file is already uploaded error message */
             if(this.fileService.isAlreadyUploaded(file)){
 
-                model.addAttribute("errorExample", "errorExample");
-                System.out.println("file already exist !!");
+                model.addAttribute("errorExample", "The file is already uploaded. Please choose another file.");
+                //System.out.println("file already exist !!");
             }else {
                 /* CALL THE SERVICE LAYER */
                 int serviceUpload = this.fileService.upload(file, authentication);
-                System.out.println("the upload service layer !! : " + serviceUpload);
+                //System.out.println("the upload service layer !! : " + serviceUpload);
                 /* Take the arrayList !!*/
-                model.addAttribute("success", "success");
+                model.addAttribute("success", "Your changes were successfully saved");
             }
         } catch (IOException e) {
             e.printStackTrace();

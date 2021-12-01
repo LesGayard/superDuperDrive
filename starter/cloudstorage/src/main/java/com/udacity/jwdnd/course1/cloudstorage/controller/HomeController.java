@@ -39,7 +39,7 @@ public class HomeController {
     @GetMapping
     public String HomeTemplate(Model model, Authentication authentication, MultipartFile multipartFile, Integer fileId,InputStream inputStream,RedirectAttributes redirect) throws Exception {
 
-        System.out.println("logInOk");
+        //System.out.println("logInOk");
         String param = null;
         String username = "";
         Integer userId = 0;
@@ -49,10 +49,10 @@ public class HomeController {
         /* CHECK THE RIGHT USER LOGGED IN WITH ITS OWN ID */
         if (principal instanceof UserDetails) {
             username = ((UserDetails) principal).getUsername();
-            System.out.println("Principal if username : " + username);
+           // System.out.println("Principal if username : " + username);
         } else {
             username = principal.toString();
-            System.out.println("Principal else username : " + username);
+           // System.out.println("Principal else username : " + username);
         }
 
         User user = userService.getUser(username);
@@ -105,7 +105,6 @@ public class HomeController {
         InputStream inputStream = new ByteArrayInputStream(fileData);
 
         InputStreamResource resource = new InputStreamResource(inputStream);
-        System.out.println("test home controller download");
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + filename)
                 .contentType(MediaType.parseMediaType(contentType))
