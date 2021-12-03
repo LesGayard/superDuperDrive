@@ -3,6 +3,7 @@ package com.udacity.jwdnd.course1.cloudstorage.controller;
 import com.udacity.jwdnd.course1.cloudstorage.model.FileModel;
 import com.udacity.jwdnd.course1.cloudstorage.model.User;
 import com.udacity.jwdnd.course1.cloudstorage.service.FileService;
+import com.udacity.jwdnd.course1.cloudstorage.service.NoteService;
 import com.udacity.jwdnd.course1.cloudstorage.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
@@ -35,6 +36,9 @@ public class HomeController {
     @Autowired
     private FileService fileService;
 
+    @Autowired
+    private NoteService noteService;
+
 
     @GetMapping
     public String HomeTemplate(Model model, Authentication authentication, MultipartFile multipartFile, Integer fileId,InputStream inputStream,RedirectAttributes redirect) throws Exception {
@@ -43,7 +47,6 @@ public class HomeController {
         String param = null;
         String username = "";
         Integer userId = 0;
-        ArrayList<String> displayUploadedFiles = new ArrayList<String>();
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         /* CHECK THE RIGHT USER LOGGED IN WITH ITS OWN ID */
@@ -71,6 +74,7 @@ public class HomeController {
                 if(this.fileService.isFileDelete(fileId) == false){
                     model.addAttribute("FileModel",this.fileService.viewFilesByUserId(userId));
                 }
+
 
                 model.addAttribute("FileModel",this.fileService.viewFilesByUserId(userId));
 
