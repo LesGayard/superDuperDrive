@@ -29,10 +29,10 @@ public interface NoteMapper {
     int insertNote(NoteModel noteModel);
 
     @Update("UPDATE NOTES SET (notetitle, notedescription) VALUES (#{noteTitle},#{notedescription}) WHERE  noteid = #{noteid} AND userId = #{userId}")
-    int updateNoteId(int noteid);
+    Integer updateNoteId(Integer noteid);
 
-    @Delete ("DELETE FROM NOTES WHERE userId = #{userId} AND noteid = #{noteid}")
-    int deleteNote(int noteid);
+    @Delete ("DELETE FROM NOTES WHERE noteid = #{noteid}")
+    Integer deleteNote(Integer noteid);
 
 
 }

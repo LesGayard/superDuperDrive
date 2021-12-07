@@ -64,13 +64,21 @@ public class NoteService {
     }
 
     //Update
-    public int updateNoteId(int noteId){
+    public int updateNoteId(Integer noteId){
         return noteMapper.updateNoteId(noteId);
     }
 
     //Delete
-    public int deleteNote(int noteId){
+    public int deleteNote(Integer noteId){
         return noteMapper.deleteNote(noteId);
+    }
+
+    public Boolean isNoteDelete(Integer noteId){
+        Boolean result = false;
+        if(this.noteMapper.deleteNote(noteId) != null){
+            result = true;
+        }
+        return result;
     }
 
     /* FIND THE USERID*/

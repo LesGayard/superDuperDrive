@@ -41,7 +41,7 @@ public class HomeController {
 
 
     @GetMapping
-    public String HomeTemplate(Model model, Authentication authentication, MultipartFile multipartFile, Integer fileId,InputStream inputStream,RedirectAttributes redirect) throws Exception {
+    public String HomeTemplate(Model model, Authentication authentication, MultipartFile multipartFile, Integer fileId,Integer noteId, InputStream inputStream,RedirectAttributes redirect) throws Exception {
 
         //System.out.println("logInOk");
         String param = null;
@@ -75,7 +75,9 @@ public class HomeController {
                     model.addAttribute("FileModel",this.fileService.viewFilesByUserId(userId));
                 }
 
-
+                if(this.noteService.isNoteDelete(noteId) == false){
+                    model.addAttribute("NoteModel", this.noteService.viewNotesModelByUserId(userId));
+                }
                 model.addAttribute("FileModel",this.fileService.viewFilesByUserId(userId));
                 model.addAttribute("NoteModel", this.noteService.viewNotesModelByUserId(userId));
 
