@@ -77,6 +77,7 @@ public class HomeController {
 
 
                 model.addAttribute("FileModel",this.fileService.viewFilesByUserId(userId));
+                model.addAttribute("NoteModel", this.noteService.viewNotesModelByUserId(userId));
 
             }catch(Exception e){
                 e.printStackTrace();

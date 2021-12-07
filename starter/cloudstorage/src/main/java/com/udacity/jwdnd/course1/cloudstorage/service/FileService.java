@@ -101,7 +101,7 @@ public class FileService {
     }
 
     /* VIEW THE FILES BY USERID*/
-    public ArrayList<FileModel>  viewFilesByUserId(Integer userId) {
+    public ArrayList<FileModel>viewFilesByUserId(Integer userId) {
         ArrayList<FileModel> result = this.fileMapper.viewFileModelsByUserId(userId);
        // System.out.println("inside the file service Layer for the uploaded files array List : " + result);
         return result;

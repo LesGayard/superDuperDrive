@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
+
 
 @Controller
 @RequestMapping("/home")
@@ -36,13 +38,14 @@ public class NoteController {
         System.out.println("test Note controller add a note ! ");
         int userId = getUserId(authentication);
 
-       if(noteTitle != null){
+       if(this.noteService.isAlreadyAdded(noteModel) == false){
            int noteId = this.noteService.insertNote(noteTitle,noteDescription,authentication);
            System.out.println("inserted ok");
            System.out.println("note title : "+ noteTitle);
            System.out.println("note content : "+ noteDescription);
+           System.out.println("test note id : " + noteId);
 
-          model.addAttribute("NoteModel", this.noteService.viewNoteById(noteId));
+
        }else{
            System.out.println("note already exists !!");
        }

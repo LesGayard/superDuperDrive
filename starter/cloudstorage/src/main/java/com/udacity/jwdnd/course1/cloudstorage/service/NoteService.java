@@ -49,16 +49,17 @@ public class NoteService {
         return this.noteMapper.insertNote(noteModel);
     }
 
-    public boolean isAlreadyAdded(MultipartFile noteToAdd){
-        return this.noteMapper.getNote(noteToAdd.getOriginalFilename()) != null;
+    public boolean isAlreadyAdded(NoteModel noteToAdd){
+        System.out.println("inside the boolean " + this.noteMapper.getNoteModel(noteToAdd));
+        return this.noteMapper.getNoteModel(noteToAdd) != null;
     }
 
     /* VIEW NOTE BY ITS ID */
     public NoteModel viewNoteById(int noteId){return this.noteMapper.viewNoteById(noteId);}
 
     /* VIEW NOTES BY USER ID */
-    public ArrayList<NoteModel>viewNotesByUserId(Integer userId){
-        ArrayList<NoteModel> result = this.viewNotesByUserId(userId);
+    public ArrayList<NoteModel>viewNotesModelByUserId(Integer userId){
+        ArrayList<NoteModel> result = this.noteMapper.viewNotesModelByUserId(userId);
         return result;
     }
 
