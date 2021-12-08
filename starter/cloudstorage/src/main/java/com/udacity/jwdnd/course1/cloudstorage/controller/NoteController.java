@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
@@ -37,21 +34,18 @@ public class NoteController {
     public String addNote(@RequestParam("noteTitle") String noteTitle ,@RequestParam("noteDescription") String noteDescription, Model model, @ModelAttribute("NoteModel") NoteModel noteModel,Authentication authentication){
         System.out.println("test Note controller add a note ! ");
         int userId = getUserId(authentication);
+        int noteId = 0;
 
-       if(this.noteService.isAlreadyAdded(noteModel) == false){
-           int noteId = this.noteService.insertNote(noteTitle,noteDescription,authentication);
-           System.out.println("inserted ok");
-           System.out.println("note title : "+ noteTitle);
-           System.out.println("note content : "+ noteDescription);
-           System.out.println("test note id : " + noteId);
-
-
-       }else{
-           System.out.println("note already exists !!");
-       }
-
-        System.out.println("test post note");
-
+      if(noteId == 0){
+          System.out.println("must insert a note !!");
+          noteId = this.noteService.insertNote(noteTitle,noteDescription,authentication);
+          System.out.println("test after insertion");
+          System.out.println(noteTitle);
+      }else if(noteId > 0){
+          System.out.println("must update the note");
+         this.noteService.updateNoteId(noteModel);
+          System.out.println("test after update : " );
+      }
 
         return"redirect:/home";
     }

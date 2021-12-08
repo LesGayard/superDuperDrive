@@ -1,6 +1,7 @@
 package com.udacity.jwdnd.course1.cloudstorage.controller;
 
 import com.udacity.jwdnd.course1.cloudstorage.model.FileModel;
+import com.udacity.jwdnd.course1.cloudstorage.model.NoteModel;
 import com.udacity.jwdnd.course1.cloudstorage.model.User;
 import com.udacity.jwdnd.course1.cloudstorage.service.FileService;
 import com.udacity.jwdnd.course1.cloudstorage.service.NoteService;
@@ -41,9 +42,8 @@ public class HomeController {
 
 
     @GetMapping
-    public String HomeTemplate(Model model, Authentication authentication, MultipartFile multipartFile, Integer fileId,Integer noteId, InputStream inputStream,RedirectAttributes redirect) throws Exception {
+    public String HomeTemplate(Model model, Authentication authentication, MultipartFile multipartFile, Integer fileId, Integer noteId, InputStream inputStream,RedirectAttributes redirect) throws Exception {
 
-        //System.out.println("logInOk");
         String param = null;
         String username = "";
         Integer userId = 0;
@@ -52,10 +52,9 @@ public class HomeController {
         /* CHECK THE RIGHT USER LOGGED IN WITH ITS OWN ID */
         if (principal instanceof UserDetails) {
             username = ((UserDetails) principal).getUsername();
-           // System.out.println("Principal if username : " + username);
+
         } else {
             username = principal.toString();
-           // System.out.println("Principal else username : " + username);
         }
 
         User user = userService.getUser(username);
@@ -78,6 +77,7 @@ public class HomeController {
                 if(this.noteService.isNoteDelete(noteId) == false){
                     model.addAttribute("NoteModel", this.noteService.viewNotesModelByUserId(userId));
                 }
+
                 model.addAttribute("FileModel",this.fileService.viewFilesByUserId(userId));
                 model.addAttribute("NoteModel", this.noteService.viewNotesModelByUserId(userId));
 

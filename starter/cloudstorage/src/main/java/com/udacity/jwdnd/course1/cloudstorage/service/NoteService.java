@@ -64,8 +64,8 @@ public class NoteService {
     }
 
     //Update
-    public int updateNoteId(Integer noteId){
-        return noteMapper.updateNoteId(noteId);
+    public void updateNoteId(NoteModel noteModel){
+         this.noteMapper.updateNoteId(noteModel);
     }
 
     //Delete
