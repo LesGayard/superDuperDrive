@@ -85,7 +85,6 @@ public class FileService {
 
     /* if the file is already uploaded error message */
     public boolean isAlreadyUploaded(MultipartFile fileToUpload){
-        //System.out.println(" Test if this file is already uploaded : " + fileMapper.getFile(fileToUpload.getOriginalFilename()));
         return fileMapper.getFile(fileToUpload.getOriginalFilename()) != null;
     }
 
@@ -103,7 +102,6 @@ public class FileService {
     /* VIEW THE FILES BY USERID*/
     public ArrayList<FileModel>viewFilesByUserId(Integer userId) {
         ArrayList<FileModel> result = this.fileMapper.viewFileModelsByUserId(userId);
-       // System.out.println("inside the file service Layer for the uploaded files array List : " + result);
         return result;
     }
 
