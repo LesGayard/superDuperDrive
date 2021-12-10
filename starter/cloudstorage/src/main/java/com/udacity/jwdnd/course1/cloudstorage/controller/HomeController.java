@@ -46,7 +46,7 @@ public class HomeController {
 
 
     @GetMapping
-    public String HomeTemplate(Model model, Authentication authentication, MultipartFile multipartFile, Integer fileId, Integer noteId, InputStream inputStream,RedirectAttributes redirect) throws Exception {
+    public String HomeTemplate(Model model, Authentication authentication, MultipartFile multipartFile, Integer fileId, Integer noteId, Integer credentialId, InputStream inputStream,RedirectAttributes redirect) throws Exception {
 
         String param = null;
         String username = "";
@@ -82,6 +82,10 @@ public class HomeController {
                     model.addAttribute("NoteModel", this.noteService.viewNotesModelByUserId(userId));
                 }
 
+                if(this.credentialService.isCredentialDeleted(credentialId) == false){
+                    System.out.println("try delete credential");
+                    model.addAttribute("CredentialModel", this.credentialService.viewCredentialModelsByUserId(userId));
+                }
                 model.addAttribute("FileModel",this.fileService.viewFilesByUserId(userId));
                 model.addAttribute("NoteModel", this.noteService.viewNotesModelByUserId(userId));
                 model.addAttribute("CredentialModel", this.credentialService.viewCredentialModelsByUserId(userId));
@@ -103,6 +107,8 @@ public class HomeController {
         return "redirect:/home";
     }
 
+
+
     @RequestMapping(value= "/view/")
     public ResponseEntity<InputStreamResource> download(
             @RequestParam(required = false, name = "fileId") Integer fileId) {
@@ -121,6 +127,16 @@ public class HomeController {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + filename)
                 .contentType(MediaType.parseMediaType(contentType))
                 .body(resource);
+    }
+
+    @RequestMapping(value ="/deletecredential/")
+    public String deleteCredential(Model model, Integer credentialId,RedirectAttributes redirect){
+        System.out.println("test button dele !!");
+        if(this.credentialService.isCredentialDeleted(credentialId) == false){
+            System.out.println("try delete ");
+            redirect.addAttribute("CredentialModel", this.credentialService.deleteCredential(credentialId));
+        }
+        return "redirect:/home";
     }
 
     private Integer getUserId(Authentication authentication) {

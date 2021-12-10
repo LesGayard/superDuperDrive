@@ -66,7 +66,7 @@ public class NoteService {
 
     //Delete
     public int deleteNote(Integer noteId){
-        return noteMapper.deleteNote(noteId);
+        return this.noteMapper.deleteNote(noteId);
     }
 
     public Boolean isNoteDelete(Integer noteId){

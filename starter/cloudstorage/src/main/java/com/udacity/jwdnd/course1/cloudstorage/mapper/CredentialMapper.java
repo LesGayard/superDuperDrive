@@ -1,10 +1,7 @@
 package com.udacity.jwdnd.course1.cloudstorage.mapper;
 
 import com.udacity.jwdnd.course1.cloudstorage.model.CredentialModel;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.ArrayList;
 
@@ -24,5 +21,7 @@ public interface CredentialMapper {
     @Select("SELECT * FROM CREDENTIALS WHERE url = #{url}")
     CredentialModel getCredential(String url);
 
-
+    /* DELETE THE CREDENTIAL BY ITS ID */
+    @Delete("DELETE FROM CREDENTIALS WHERE credentialid = #{credentialid}")
+    Integer deleteCredential(Integer credentialid);
 }

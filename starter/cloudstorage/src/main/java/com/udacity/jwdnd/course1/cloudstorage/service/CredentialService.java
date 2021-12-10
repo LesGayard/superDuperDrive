@@ -66,4 +66,17 @@ public class CredentialService {
         User user = userService.getUser(userName);
         return user.getUserId();
     }
+
+    /* DELETE THE CREDENTIAL BY ITS ID */
+    public int deleteCredential(Integer credentialid){
+        return this.credentialMapper.deleteCredential(credentialid);
+    }
+
+    public Boolean isCredentialDeleted(Integer credentialid){
+        Boolean result = false;
+        if(this.credentialMapper.deleteCredential(credentialid) != null){
+            result = true;
+        }
+        return result;
+    }
 }
