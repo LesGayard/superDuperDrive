@@ -3,6 +3,7 @@ package com.udacity.jwdnd.course1.cloudstorage.service;
 import com.udacity.jwdnd.course1.cloudstorage.mapper.CredentialMapper;
 import com.udacity.jwdnd.course1.cloudstorage.model.CredentialModel;
 import com.udacity.jwdnd.course1.cloudstorage.model.User;
+import com.udacity.jwdnd.course1.cloudstorage.services.EncryptionService;
 import com.udacity.jwdnd.course1.cloudstorage.services.HashService;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
@@ -16,11 +17,13 @@ public class CredentialService {
     private final CredentialMapper credentialMapper;
     private final UserService userService;
     private final HashService hashService;
+    private final EncryptionService encryptionService;
 
-    public CredentialService(CredentialMapper credentialMapper, UserService userService, HashService hashService) {
+    public CredentialService(CredentialMapper credentialMapper, UserService userService, HashService hashService, EncryptionService encryptionService) {
         this.credentialMapper = credentialMapper;
         this.userService = userService;
         this.hashService = hashService;
+        this.encryptionService = encryptionService;
     }
 
     /* CREDENTIAL CREATION */
@@ -78,5 +81,19 @@ public class CredentialService {
             result = true;
         }
         return result;
+    }
+
+    /* UPDATE EDIT THE CREDENTIAL */
+    public void editCredential (CredentialModel credentialModel, String password){
+        /* Decrypt the password */
+        SecureRandom random = new SecureRandom();
+        byte[] key = new byte[16];
+        random.nextBytes(key);
+        String encodedKey = Base64.getEncoder().encodeToString(key);
+        String encryptedPassword = encryptionService.encryptValue(password, encodedKey);
+        String decryptedPassword = encryptionService.decryptValue(encryptedPassword, encodedKey);
+
+        credentialModel.setPassword(decryptedPassword);
+        this.credentialMapper.updateCredentialId(credentialModel);
     }
 }

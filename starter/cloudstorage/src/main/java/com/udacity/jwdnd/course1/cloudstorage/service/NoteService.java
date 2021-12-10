@@ -45,9 +45,12 @@ public class NoteService {
         return this.noteMapper.insertNote(noteModel);
     }
 
-    public boolean isAlreadyAdded(NoteModel noteToAdd){
-        System.out.println("inside the boolean " + this.noteMapper.getNoteModel(noteToAdd));
-        return this.noteMapper.getNoteModel(noteToAdd) != null;
+    public Boolean isAlreadyAdded(Integer noteId){
+        Boolean result = false;
+        if(this.noteMapper.viewNoteById(noteId)!= null){
+            result = true;
+        }
+        return result;
     }
 
     /* VIEW NOTE BY ITS ID */
@@ -60,8 +63,8 @@ public class NoteService {
     }
 
     //Update
-    public void updateNoteId(NoteModel noteModel){
-         this.noteMapper.updateNoteId(noteModel);
+    public int updateNoteId(String notetitle, String notedescription, Integer noteid){
+        return this.noteMapper.updateNoteId(notetitle, notedescription, noteid);
     }
 
     //Delete

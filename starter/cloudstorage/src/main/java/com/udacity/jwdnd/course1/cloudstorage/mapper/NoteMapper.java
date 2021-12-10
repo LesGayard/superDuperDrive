@@ -17,7 +17,7 @@ public interface NoteMapper {
 
     /* VIEW NOTE BY ITS ID*/
     @Select("SELECT * FROM NOTES WHERE noteid = #{noteid}")
-    NoteModel viewNoteById(int noteid);
+    NoteModel viewNoteById(Integer noteid);
 
     /* VIEW NOTE BY USER ID */
     @Select("SELECT * FROM NOTES WHERE userId = #{userId}")
@@ -28,8 +28,8 @@ public interface NoteMapper {
     @Options(useGeneratedKeys = true, keyProperty = "noteid")
     int insertNote(NoteModel noteModel);
 
-    @Update("UPDATE NOTES SET (notetitle, notedescription) VALUES (#{noteTitle},#{notedescription}) WHERE  noteid = #{noteid}")
-    void updateNoteId(NoteModel noteModel);
+    @Update("UPDATE NOTES SET notetitle = #{notetitle}, notedescription = #{notedescription} WHERE  noteid = #{noteid}")
+    int updateNoteId(String notetitle, String notedescription,Integer noteid);
 
     @Delete ("DELETE FROM NOTES WHERE noteid = #{noteid}")
     Integer deleteNote(Integer noteid);

@@ -81,11 +81,15 @@ public class HomeController {
                 if(this.noteService.isNoteDelete(noteId) == false){
                     model.addAttribute("NoteModel", this.noteService.viewNotesModelByUserId(userId));
                 }
+                if(this.noteService.isAlreadyAdded(noteId) == true){
+                    model.addAttribute("NoteModel", this.noteService.viewNotesModelByUserId(userId));
+                }
 
                 if(this.credentialService.isCredentialDeleted(credentialId) == false){
                     System.out.println("try delete credential");
                     model.addAttribute("CredentialModel", this.credentialService.viewCredentialModelsByUserId(userId));
                 }
+
                 model.addAttribute("FileModel",this.fileService.viewFilesByUserId(userId));
                 model.addAttribute("NoteModel", this.noteService.viewNotesModelByUserId(userId));
                 model.addAttribute("CredentialModel", this.credentialService.viewCredentialModelsByUserId(userId));

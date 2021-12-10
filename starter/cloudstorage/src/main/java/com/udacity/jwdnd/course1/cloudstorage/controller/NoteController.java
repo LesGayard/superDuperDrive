@@ -31,19 +31,20 @@ public class NoteController {
 
     //Post request for adding a note
     @PostMapping("/noteToAdd")
-    public String addNote(@RequestParam("noteTitle") String noteTitle ,@RequestParam("noteDescription") String noteDescription, Model model, @ModelAttribute("NoteModel") NoteModel noteModel,Authentication authentication){
+    public String addNote( Integer noteId, @RequestParam("noteTitle") String noteTitle ,@RequestParam("noteDescription") String noteDescription, Model model, @ModelAttribute("NoteModel") NoteModel noteModel,Authentication authentication){
         System.out.println("test Note controller add a note ! ");
         int userId = getUserId(authentication);
-        int noteId = 0;
 
-      if(noteId == 0){
+        Integer noteUpdate = null;
+
+      if(noteId == null){
           System.out.println("must insert a note !!");
-          noteId = this.noteService.insertNote(noteTitle,noteDescription,authentication);
+          this.noteService.insertNote(noteTitle,noteDescription,authentication);
           System.out.println("test after insertion");
           System.out.println(noteTitle);
-      }else if(noteId > 0){
+      }else {
           System.out.println("must update the note");
-         this.noteService.updateNoteId(noteModel);
+          this.noteService.updateNoteId(noteTitle,noteDescription,noteId);
           System.out.println("test after update : " );
       }
 
