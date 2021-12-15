@@ -19,32 +19,32 @@ public class CredentialService {
     private final HashService hashService;
     private final EncryptionService encryptionService;
 
+
     public CredentialService(CredentialMapper credentialMapper, UserService userService, HashService hashService, EncryptionService encryptionService) {
         this.credentialMapper = credentialMapper;
         this.userService = userService;
         this.hashService = hashService;
         this.encryptionService = encryptionService;
+
     }
 
     /* CREDENTIAL CREATION */
-    public int creationCredential (String url, String username, String password, Authentication authentication){
+    public int creationCredential (String url, String username,String key, String password, Authentication authentication){
         System.out.println("credentials service creation layer ok ");
-
         /* The password must be crypted */
-        SecureRandom random = new SecureRandom();
-        byte[] salt = new byte[16];
-        random.nextBytes(salt);
-        String encodedSalt = Base64.getEncoder().encodeToString(salt);
-        String hashedPassword = hashService.getHashedValue(password, encodedSalt);
 
         CredentialModel credentialModel = new CredentialModel();
+
         credentialModel.setUrl(url);
         credentialModel.setUsername(username);
-        //credentialModel.setKey(key);
-        credentialModel.setPassword(hashedPassword);
+        credentialModel.setKey(key);
+        System.out.println("before the setter key : " + key);
+        System.out.println("after setter the key : " + credentialModel.getKey());
+        credentialModel.setPassword(password);
 
         Integer userId = getUserId(authentication);
         credentialModel.setUserid(userId);
+
         return this.credentialMapper.createCredential(credentialModel);
     }
 
@@ -84,16 +84,17 @@ public class CredentialService {
     }
 
     /* UPDATE EDIT THE CREDENTIAL */
-    public void editCredential (CredentialModel credentialModel, String password){
+    public int editCredential (CredentialModel credentialModel,String url, String username,String key, String password,Integer credentialid) {
         /* Decrypt the password */
-        SecureRandom random = new SecureRandom();
-        byte[] key = new byte[16];
-        random.nextBytes(key);
-        String encodedKey = Base64.getEncoder().encodeToString(key);
-        String encryptedPassword = encryptionService.encryptValue(password, encodedKey);
-        String decryptedPassword = encryptionService.decryptValue(encryptedPassword, encodedKey);
 
-        credentialModel.setPassword(decryptedPassword);
-        this.credentialMapper.updateCredentialId(credentialModel);
+        return this.credentialMapper.updateCredentialId(url, username,key, password,credentialid);
     }
+
+
+    /* GET THE KEY FOR THE PASSWORD */
+
+    /* Encrypted password */
+
+    /* Decrypted Password */
+
 }
