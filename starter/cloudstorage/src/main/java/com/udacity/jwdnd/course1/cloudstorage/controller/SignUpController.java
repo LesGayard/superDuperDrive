@@ -16,9 +16,11 @@ public class SignUpController {
 
     private final UserService userService;
 
+    /* CONSTRUCTOR */
     public SignUpController(UserService userService) {
         this.userService = userService;
     }
+
 
     @GetMapping
     public String signupTemplate(){
