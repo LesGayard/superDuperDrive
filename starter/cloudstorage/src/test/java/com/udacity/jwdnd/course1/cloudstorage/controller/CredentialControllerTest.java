@@ -49,4 +49,12 @@ public class CredentialControllerTest {
         this.credentialSaveButton.click();
     }
 
+    public void updateCredential(String url, String username, String password) throws InterruptedException {
+        this.credentialEdit.click();
+        Thread.sleep(3000);
+        this.credentialsUrl.sendKeys(url);
+        this.credentialUsername.sendKeys(username);
+        this.credentialPassword.sendKeys(password);
+    }
+
 }

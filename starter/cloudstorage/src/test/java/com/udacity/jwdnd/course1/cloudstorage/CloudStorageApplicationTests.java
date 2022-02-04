@@ -26,6 +26,10 @@ class CloudStorageApplicationTests {
 	private static final String url = "https://google.com ";
 	private static final String credentialPassword= "Credential Password !";
 
+	private static final String usernameUpdate = "title updated";
+	private static final String urlUpdate = "https://duckduckgo.com ";
+	private static final String credentialPasswordUpdate= "Credential Password updated!";
+
 
 
 	@LocalServerPort
@@ -189,6 +193,27 @@ class CloudStorageApplicationTests {
 		credentialControllerTest.createCredential(url,username,credentialPassword);
 
 		Assertions.assertEquals("Home", driver.getTitle());
+	}
+
+	/* Write a Selenium test that logs in an existing user with existing credentials,
+	 clicks the edit credential button on an existing credential,
+	  changes the credential data, saves the changes,
+	  and verifies that the changes appear in the credential list. */
+	@Test
+	public void updateCredentialTest() throws InterruptedException {
+		/* the existing credential */
+		createCredential();
+
+		/* the update credential */
+		driver.get("http://localhost:" + this.port + "/home");
+		CredentialControllerTest credentialControllerTest = new CredentialControllerTest(driver);
+
+		credentialControllerTest.displayCredential();
+		Thread.sleep(3000);
+		credentialControllerTest.updateCredential(urlUpdate,usernameUpdate,credentialPasswordUpdate);
+
+		Assertions.assertEquals("Home", driver.getTitle());
+
 	}
 
 
