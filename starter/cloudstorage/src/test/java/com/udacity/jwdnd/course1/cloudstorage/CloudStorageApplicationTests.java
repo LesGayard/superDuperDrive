@@ -124,9 +124,9 @@ class CloudStorageApplicationTests {
 		Assertions.assertEquals("Home", driver.getTitle());
 	}
 
-	/*Write a Selenium test that logs in an existing user with existing notes,
+	/* Write a Selenium test that logs in an existing user with existing notes,
 	clicks the edit note button on an existing note,
-	changes the note data, saves the changes, and verifies that the changes appear in the note list.*/
+	changes the note data, saves the changes, and verifies that the changes appear in the note list. */
 	@Test
 	public void updateNoteTest() throws InterruptedException{
 		createNoteTest();
@@ -137,6 +137,23 @@ class CloudStorageApplicationTests {
 		noteControllerTest.displayNote();
 		Thread.sleep(4000);
 		noteControllerTest.updateNote(noteTitleUpdate,noteDescriptionUpdate);
+
+		Assertions.assertEquals("Home", driver.getTitle());
+	}
+
+	/* Write a Selenium test that logs in an existing user with existing notes,
+	 clicks the delete note button on an existing note,
+	  and verifies that the note no longer appears in the note list. */
+	@Test
+	public void deleteNoteTest() throws InterruptedException{
+		createNoteTest();
+		Thread.sleep(3000);
+
+		driver.get("http://localhost:" + this.port + "/home");
+		NoteControllerTest noteControllerTest = new NoteControllerTest(driver);
+		noteControllerTest.displayNote();
+		Thread.sleep(3000);
+		noteControllerTest.deleteNote();
 
 		Assertions.assertEquals("Home", driver.getTitle());
 	}

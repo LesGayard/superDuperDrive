@@ -6,6 +6,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class NoteControllerTest {
+
+    /* WEB-ELEMENTS */
     @FindBy(css = "#nav-notes-tab")
     private WebElement displayNoteModalLabelField;
 
@@ -24,11 +26,17 @@ public class NoteControllerTest {
     @FindBy(css = "#editNote")
     private WebElement editNoteButton;
 
+    @FindBy(css = "#deleteNote")
+    private WebElement deleteNoteButton;
 
+
+    /* CONSTRUCTOR */
     public NoteControllerTest(WebDriver driver){
         PageFactory.initElements(driver, this);
     }
 
+
+    /* HELPER METHODS */
     public void displayNote(){
         this.displayNoteModalLabelField.click();
     }
@@ -47,6 +55,10 @@ public class NoteControllerTest {
         this.noteModelTitleField.sendKeys(title);
         this.noteModelDescriptionField.sendKeys(description);
         this.noteModelSubmit.click();
+    }
+
+    public void deleteNote(){
+        this.deleteNoteButton.click();
     }
 
 
