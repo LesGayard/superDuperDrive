@@ -6,7 +6,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class HomeControllerTest {
-    @FindBy(css = "logout")
+    @FindBy(css = "#logout")
     private WebElement logoutButtonField;
 
 
@@ -16,7 +16,7 @@ public class HomeControllerTest {
 
 
     /* HELPER METHODS */
-    public void homePage(){
-        System.out.println("home page displayed !!");
+    public void logout(){
+        this.logoutButtonField.click();
     }
 }

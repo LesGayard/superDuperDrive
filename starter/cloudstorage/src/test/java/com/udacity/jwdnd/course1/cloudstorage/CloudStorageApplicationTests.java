@@ -53,7 +53,7 @@ class CloudStorageApplicationTests {
 
 	/* SIGN UP A NEW USER TEST AND LOG IN THE REGISTERED USER VERIFIES THEY CAN ACCESS THE HOME PAGE */
 	@Test
-	public void signupUserTest(){
+	public void signupLoginUserHomeTest(){
 
 		driver.get("http://localhost:" + this.port + "/signup");
 		SignUpControllerTest signUpControllerTest = new SignUpControllerTest(driver);
@@ -69,11 +69,17 @@ class CloudStorageApplicationTests {
 		loginControllerTest.login(username,password);
 		Assertions.assertEquals("Home",driver.getTitle());
 
+		/* logout from home to the login page */
+		driver.get("http://localhost:" + this.port + "/home");
+		HomeControllerTest homeControllerTest = new HomeControllerTest(driver);
+		homeControllerTest.logout();
+		Assertions.assertEquals("Login", driver.getTitle());
+
 	}
 
 	/* LOGS THE  USER IN WITHOUT REGISTRATION MUST FAIL*/
 	@Test
-	public void logSignedUpUserIn(){
+	public void loginWithoutAuthentication(){
 		driver.get("http://localhost:" + this.port + "/");
 		LoginControllerTest loginControllerTest = new LoginControllerTest(driver);
 
