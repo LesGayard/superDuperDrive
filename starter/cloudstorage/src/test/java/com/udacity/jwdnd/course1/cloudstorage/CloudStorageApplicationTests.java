@@ -1,5 +1,7 @@
 package com.udacity.jwdnd.course1.cloudstorage;
 
+import com.udacity.jwdnd.course1.cloudstorage.controller.HomeControllerTest;
+import com.udacity.jwdnd.course1.cloudstorage.controller.LoginControllerTest;
 import com.udacity.jwdnd.course1.cloudstorage.controller.SignUpControllerTest;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
@@ -49,23 +51,35 @@ class CloudStorageApplicationTests {
 		Assertions.assertEquals("Login", driver.getTitle());
 	}
 
+	/* SIGN UP A NEW USER TEST AND LOG IN THE REGISTERED USER VERIFIES THEY CAN ACCESS THE HOME PAGE */
 	@Test
 	public void signupUserTest(){
 
 		driver.get("http://localhost:" + this.port + "/signup");
 		SignUpControllerTest signUpControllerTest = new SignUpControllerTest(driver);
 
+		/* sign up */
 		signUpControllerTest.signup(firstname,lastname,username,password);
 		Assertions.assertEquals("Sign Up",driver.getTitle());
+
+		driver.get("http://localhost:" + this.port + "/");
+		LoginControllerTest loginControllerTest = new LoginControllerTest(driver);
+
+		/* log in and get the hom page */
+		loginControllerTest.login(username,password);
+		Assertions.assertEquals("Home",driver.getTitle());
+
 	}
 
+	/* LOGS THE  USER IN WITHOUT REGISTRATION MUST FAIL*/
 	@Test
-	public void test(){
-		driver.get("http://google.com");
+	public void logSignedUpUserIn(){
+		driver.get("http://localhost:" + this.port + "/");
+		LoginControllerTest loginControllerTest = new LoginControllerTest(driver);
+
+		loginControllerTest.login(firstname,password);
+		Assertions.assertNotEquals("Sign Up",driver.getTitle());
 	}
 
-	@Test
-	public void testLocalhost(){
-		driver.get("http://localhost:" + this.port);
-	}
+
 }
