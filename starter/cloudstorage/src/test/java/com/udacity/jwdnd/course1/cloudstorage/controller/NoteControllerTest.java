@@ -40,6 +40,7 @@ public class NoteControllerTest {
     public void displayNote(){
         this.displayNoteModalLabelField.click();
     }
+
     public void createNote(String title, String description) throws InterruptedException {
         this.AddANewNoteButton.click();
         Thread.sleep(3000);

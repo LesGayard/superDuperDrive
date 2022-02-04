@@ -1,9 +1,6 @@
 package com.udacity.jwdnd.course1.cloudstorage;
 
-import com.udacity.jwdnd.course1.cloudstorage.controller.HomeControllerTest;
-import com.udacity.jwdnd.course1.cloudstorage.controller.LoginControllerTest;
-import com.udacity.jwdnd.course1.cloudstorage.controller.NoteControllerTest;
-import com.udacity.jwdnd.course1.cloudstorage.controller.SignUpControllerTest;
+import com.udacity.jwdnd.course1.cloudstorage.controller.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
@@ -24,6 +21,12 @@ class CloudStorageApplicationTests {
 
 	private static final String noteTitleUpdate = "noteTitle updated";
 	private static final String noteDescriptionUpdate = "This is the note update description test !! ";
+
+	private static final String title = "title";
+	private static final String url = "https://google.com ";
+	private static final String credentialPassword= "Credential Password !";
+
+
 
 	@LocalServerPort
 	private int port;
@@ -154,6 +157,36 @@ class CloudStorageApplicationTests {
 		noteControllerTest.displayNote();
 		Thread.sleep(3000);
 		noteControllerTest.deleteNote();
+
+		Assertions.assertEquals("Home", driver.getTitle());
+	}
+
+	/*Write a Selenium test that logs in an existing user,
+	creates a credential and verifies that the credential details are visible in the credential list.*/
+	@Test
+	public void createCredential() throws InterruptedException {
+		driver.get("http://localhost:" + this.port + "/signup");
+		SignUpControllerTest signUpControllerTest = new SignUpControllerTest(driver);
+
+		/* sign up */
+		signUpControllerTest.signup(firstname,lastname,username,password);
+		Assertions.assertEquals("Sign Up",driver.getTitle());
+
+		driver.get("http://localhost:" + this.port + "/");
+		LoginControllerTest loginControllerTest = new LoginControllerTest(driver);
+
+		/* log in and get the home page */
+		loginControllerTest.login(username,password);
+		Assertions.assertEquals("Home",driver.getTitle());
+
+		/* Go to the credential tab */
+		driver.get("http://localhost:" + this.port + "/home");
+		CredentialControllerTest credentialControllerTest = new CredentialControllerTest(driver);
+
+		credentialControllerTest.displayCredential();
+		Thread.sleep(4000);
+		/* Create the credential */
+		credentialControllerTest.createCredential(url,username,credentialPassword);
 
 		Assertions.assertEquals("Home", driver.getTitle());
 	}

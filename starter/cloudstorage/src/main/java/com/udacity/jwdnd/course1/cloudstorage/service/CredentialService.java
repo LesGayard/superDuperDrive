@@ -7,10 +7,8 @@ import com.udacity.jwdnd.course1.cloudstorage.services.EncryptionService;
 import com.udacity.jwdnd.course1.cloudstorage.services.HashService;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
-
-import java.security.SecureRandom;
 import java.util.ArrayList;
-import java.util.Base64;
+
 
 @Service
 public class CredentialService {
