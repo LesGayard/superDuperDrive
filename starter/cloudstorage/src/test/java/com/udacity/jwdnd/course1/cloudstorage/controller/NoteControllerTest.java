@@ -10,7 +10,7 @@ public class NoteControllerTest {
     private WebElement displayNoteModalLabelField;
 
     @FindBy(css = "#displayNoteModal")
-    private WebElement editButton;
+    private WebElement AddANewNoteButton;
 
     @FindBy(css = "#noteModel-title")
     private WebElement noteModelTitleField;
@@ -21,6 +21,10 @@ public class NoteControllerTest {
     @FindBy(css = "#noteModelSubmit")
     private WebElement noteModelSubmit;
 
+    @FindBy(css = "#editNote")
+    private WebElement editNoteButton;
+
+
     public NoteControllerTest(WebDriver driver){
         PageFactory.initElements(driver, this);
     }
@@ -29,7 +33,16 @@ public class NoteControllerTest {
         this.displayNoteModalLabelField.click();
     }
     public void createNote(String title, String description) throws InterruptedException {
-        this.editButton.click();
+        this.AddANewNoteButton.click();
+        Thread.sleep(3000);
+        this.noteModelTitleField.sendKeys(title);
+        this.noteModelDescriptionField.sendKeys(description);
+        this.noteModelSubmit.click();
+    }
+
+    public void updateNote(String title, String description)throws InterruptedException{
+        Thread.sleep(3000);
+        this.editNoteButton.click();
         Thread.sleep(3000);
         this.noteModelTitleField.sendKeys(title);
         this.noteModelDescriptionField.sendKeys(description);

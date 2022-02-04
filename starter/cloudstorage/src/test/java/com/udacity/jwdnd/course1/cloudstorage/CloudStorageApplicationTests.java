@@ -22,6 +22,9 @@ class CloudStorageApplicationTests {
 	private static final String noteTitle = "noteTitle";
 	private static final String noteDescription = "This is the note description test !! ";
 
+	private static final String noteTitleUpdate = "noteTitle updated";
+	private static final String noteDescriptionUpdate = "This is the note update description test !! ";
+
 	@LocalServerPort
 	private int port;
 
@@ -118,6 +121,23 @@ class CloudStorageApplicationTests {
 
 		Thread.sleep(2000);
 		noteControllerTest.createNote(noteTitle,noteDescription);
+		Assertions.assertEquals("Home", driver.getTitle());
+	}
+
+	/*Write a Selenium test that logs in an existing user with existing notes,
+	clicks the edit note button on an existing note,
+	changes the note data, saves the changes, and verifies that the changes appear in the note list.*/
+	@Test
+	public void updateNoteTest() throws InterruptedException{
+		createNoteTest();
+		Thread.sleep(4000);
+		driver.get("http://localhost:" + this.port + "/home");
+
+		NoteControllerTest noteControllerTest = new NoteControllerTest(driver);
+		noteControllerTest.displayNote();
+		Thread.sleep(4000);
+		noteControllerTest.updateNote(noteTitleUpdate,noteDescriptionUpdate);
+
 		Assertions.assertEquals("Home", driver.getTitle());
 	}
 
