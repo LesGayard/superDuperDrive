@@ -92,6 +92,7 @@ public class HomeController {
 
                 model.addAttribute("FileModel",this.fileService.viewFilesByUserId(userId));
                 model.addAttribute("NoteModel", this.noteService.viewNotesModelByUserId(userId));
+                System.out.println("test note model !!");
                 model.addAttribute("CredentialModel", this.credentialService.viewCredentialModelsByUserId(userId));
 
             }catch(Exception e){

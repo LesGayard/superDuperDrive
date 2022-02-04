@@ -2,6 +2,7 @@ package com.udacity.jwdnd.course1.cloudstorage;
 
 import com.udacity.jwdnd.course1.cloudstorage.controller.HomeControllerTest;
 import com.udacity.jwdnd.course1.cloudstorage.controller.LoginControllerTest;
+import com.udacity.jwdnd.course1.cloudstorage.controller.NoteControllerTest;
 import com.udacity.jwdnd.course1.cloudstorage.controller.SignUpControllerTest;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
@@ -17,6 +18,9 @@ class CloudStorageApplicationTests {
 	private static final String lastname = "de Gaard";
 	private static final String username = "Yeahh";
 	private static final String password = "password";
+
+	private static final String noteTitle = "noteTitle";
+	private static final String noteDescription = "This is the note description test !! ";
 
 	@LocalServerPort
 	private int port;
@@ -65,7 +69,7 @@ class CloudStorageApplicationTests {
 		driver.get("http://localhost:" + this.port + "/");
 		LoginControllerTest loginControllerTest = new LoginControllerTest(driver);
 
-		/* log in and get the hom page */
+		/* log in and get the home page */
 		loginControllerTest.login(username,password);
 		Assertions.assertEquals("Home",driver.getTitle());
 
@@ -85,6 +89,36 @@ class CloudStorageApplicationTests {
 
 		loginControllerTest.login(firstname,password);
 		Assertions.assertNotEquals("Sign Up",driver.getTitle());
+	}
+
+	/* Write a Selenium test that logs in an existing user,
+	creates a note and verifies that the note details are visible in the note list.*/
+	@Test
+	public void createNoteTest() throws InterruptedException{
+		driver.get("http://localhost:" + this.port + "/signup");
+		SignUpControllerTest signUpControllerTest = new SignUpControllerTest(driver);
+
+		/* sign up */
+		signUpControllerTest.signup(firstname,lastname,username,password);
+		Assertions.assertEquals("Sign Up",driver.getTitle());
+
+		driver.get("http://localhost:" + this.port + "/");
+		LoginControllerTest loginControllerTest = new LoginControllerTest(driver);
+
+		/* log in and get the home page */
+		loginControllerTest.login(username,password);
+		Assertions.assertEquals("Home",driver.getTitle());
+
+		/* create a new note */
+		driver.get("http://localhost:" + this.port + "/home");
+		NoteControllerTest noteControllerTest = new NoteControllerTest(driver);
+
+		noteControllerTest.displayNote();
+		Assertions.assertEquals("Home", driver.getTitle());
+
+		Thread.sleep(2000);
+		noteControllerTest.createNote(noteTitle,noteDescription);
+		Assertions.assertEquals("Home", driver.getTitle());
 	}
 
 
