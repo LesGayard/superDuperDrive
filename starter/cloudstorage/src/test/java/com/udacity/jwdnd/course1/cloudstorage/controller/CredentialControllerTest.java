@@ -38,8 +38,8 @@ public class CredentialControllerTest {
     /* HELPER METHODS */
     public void displayCredential(){
         this.credentialsTab.click();
-
     }
+
     public void createCredential(String url, String username, String password) throws InterruptedException {
         this.addCredentialButton.click();
         Thread.sleep(3000);
@@ -55,6 +55,10 @@ public class CredentialControllerTest {
         this.credentialsUrl.sendKeys(url);
         this.credentialUsername.sendKeys(username);
         this.credentialPassword.sendKeys(password);
+    }
+
+    public void deleteCredential() throws InterruptedException {
+        this.credentialDelete.click();
     }
 
 }

@@ -216,5 +216,21 @@ class CloudStorageApplicationTests {
 
 	}
 
+	/* Write a Selenium test that logs in an existing user with existing credentials,
+	clicks the delete credential button on an existing credential,
+	and verifies that the credential no longer appears in the credential list.*/
+	@Test
+	public void deleteCredentialTest() throws InterruptedException {
+		createCredential();
+		Thread.sleep(3000);
+		driver.get("http://localhost:" + this.port + "/home");
+		CredentialControllerTest credentialControllerTest = new CredentialControllerTest(driver);
+		credentialControllerTest.displayCredential();
+		Thread.sleep(3000);
+		credentialControllerTest.deleteCredential();
+
+		Assertions.assertEquals("Home", driver.getTitle());
+	}
+
 
 }
